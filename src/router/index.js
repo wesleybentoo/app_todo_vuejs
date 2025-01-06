@@ -51,7 +51,7 @@ export default route(function({ store /*, ssrContext */ }) {
         next('/login')
       } else {
         const user_store = userStore(store)
-        console.log("to logado", user_store)
+        await user_store.getUser()
       }
     }
 

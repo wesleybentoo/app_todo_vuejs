@@ -34,13 +34,17 @@ export const userStore = defineStore("user", {
       }
     },
 
-
-
     async getUser() {
       try {
         const response = await api.get("/profile");
-        this.user = response.data.result.user;
+        if (response.status === 200) {
+          this.user = response.data.user;
+        } else {
+          await router.push({ name: 'LoginPage' });
+        }
       } catch (error) {
+        localStorage.removeItem('app_toDo_token')
+        await router.push({ name: 'LoginPage' });
         return error;
       }
     },
